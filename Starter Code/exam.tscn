@@ -1,3 +1,82 @@
-[gd_scene format=3 uid="uid://bunyohpobvu8b"]
+[gd_scene load_steps=5 format=3 uid="uid://bunyohpobvu8b"]
+
+[ext_resource type="Script" path="res://exam.gd" id="1_0itpc"]
+[ext_resource type="Texture2D" uid="uid://rb8smo0f45mc" path="res://icon.svg" id="2_mpeyy"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_djhne"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vibhx"]
+size = Vector2(1030, 20)
 
 [node name="root" type="Node2D"]
+position = Vector2(-4, -7)
+scale = Vector2(34.675, 4.06269)
+script = ExtResource("1_0itpc")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+show_behind_parent = true
+offset_left = -4.0
+offset_top = -7.0
+offset_right = 1024.0
+offset_bottom = 1019.0
+color = Color(0.592157, 0.427451, 1, 1)
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer"]
+offset_left = 131.0
+offset_top = 18.0
+offset_right = 380.0
+offset_bottom = 124.0
+min_value = 1.0
+max_value = 20.0
+value = 1.0
+
+[node name="Label" type="Label" parent="CanvasLayer/HSlider"]
+layout_mode = 0
+offset_left = 268.0
+offset_top = 31.0
+offset_right = 308.0
+offset_bottom = 76.0
+theme_override_font_sizes/font_size = 32
+text = "1"
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 8.0
+offset_top = 47.0
+offset_right = 110.0
+offset_bottom = 102.0
+theme_override_font_sizes/font_size = 32
+text = "Count:"
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+offset_left = 176.0
+offset_top = 103.0
+offset_right = 324.0
+offset_bottom = 145.0
+text = "Create Nodes
+"
+
+[node name="Icon" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(509, 549)
+scale = Vector2(1.03593, 1.01567)
+texture = ExtResource("2_mpeyy")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="CanvasLayer"]
+position = Vector2(1, -7)
+physics_material_override = SubResource("PhysicsMaterial_djhne")
+gravity_scale = 0.0
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/RigidBody2D"]
+offset_left = 9.0
+offset_top = 983.0
+offset_right = 1032.0
+offset_bottom = 1023.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/RigidBody2D"]
+position = Vector2(504, 993)
+shape = SubResource("RectangleShape2D_vibhx")
+
+[connection signal="value_changed" from="CanvasLayer/HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
+[connection signal="body_entered" from="CanvasLayer/RigidBody2D" to="." method="_on_rigid_body_2d_body_entered"]
